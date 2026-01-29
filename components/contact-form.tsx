@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react"
-
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -22,22 +20,33 @@ export function ContactForm() {
     e.preventDefault();
     setStatus("loading");
 
+    // Prepare data for Web3Forms
+    const submissionData = {
+      ...formData,
+      access_key: "3cc1ca3b-4883-4072-8bd3-75de7829d22e", // PASTE YOUR KEY FROM WEB3FORMS HERE
+      from_name: "Axon Technology Website",
+    };
+
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submissionData),
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (result.success) {
         setStatus("success");
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
         setStatus("error");
       }
-    } catch {
+    } catch (err) {
+      console.error("Submission Error:", err);
       setStatus("error");
     }
   };
@@ -46,18 +55,19 @@ export function ContactForm() {
     <section id="contact" className="py-20 px-6 bg-secondary/30">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 text-balance">
-            Get in Touch
-          </h2>
-          <p className="text-lg text-muted-foreground text-pretty">
-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Get in Touch</h2>
+          <p className="text-lg text-muted-foreground">
+            Have questions? We'd love to hear from you.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Web3Forms Honeypot (Anti-Spam) */}
+          <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-foreground">Name</Label>
+              <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
                 type="text"
@@ -65,11 +75,10 @@ export function ContactForm() {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
-                className="bg-background border-border text-foreground placeholder:text-muted-foreground focus:ring-accent"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-foreground">Email</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -77,13 +86,12 @@ export function ContactForm() {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
-                className="bg-background border-border text-foreground placeholder:text-muted-foreground focus:ring-accent"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="subject" className="text-foreground">Subject</Label>
+            <Label htmlFor="subject">Subject</Label>
             <Input
               id="subject"
               type="text"
@@ -91,12 +99,11 @@ export function ContactForm() {
               value={formData.subject}
               onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
               required
-              className="bg-background border-border text-foreground placeholder:text-muted-foreground focus:ring-accent"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="message" className="text-foreground">Message</Label>
+            <Label htmlFor="message">Message</Label>
             <Textarea
               id="message"
               placeholder="Your message..."
@@ -104,36 +111,33 @@ export function ContactForm() {
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               required
               rows={5}
-              className="bg-background border-border text-foreground placeholder:text-muted-foreground focus:ring-accent resize-none"
+              className="resize-none"
             />
           </div>
 
           <Button
             type="submit"
             disabled={status === "loading"}
-            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-lg"
+            className="w-full bg-primary text-primary-foreground py-6 text-lg"
           >
-            {status === "loading" ? (
-              "Sending..."
-            ) : (
-              <>
-                Send Message
-                <Send className="ml-2 w-5 h-5" />
-              </>
+            {status === "loading" ? "Sending..." : (
+              <span className="flex items-center">
+                Send Message <Send className="ml-2 w-5 h-5" />
+              </span>
             )}
           </Button>
 
           {status === "success" && (
-            <div className="flex items-center gap-2 justify-center text-accent">
+            <div className="flex items-center gap-2 justify-center text-green-500">
               <CheckCircle className="w-5 h-5" />
-              <span>Message sent successfully! We'll get back to you soon.</span>
+              <span>Message sent! We'll email you soon.</span>
             </div>
           )}
 
           {status === "error" && (
-            <div className="flex items-center gap-2 justify-center text-destructive">
+            <div className="flex items-center gap-2 justify-center text-red-500">
               <AlertCircle className="w-5 h-5" />
-              <span>Something went wrong. Please try again.</span>
+              <span>Failed to send. Please try again later.</span>
             </div>
           )}
         </form>
