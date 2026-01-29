@@ -103,7 +103,7 @@ function BenefitCard({
 
 export function Benefits() {
   return (
-    <section id="features" className="py-24 px-6 relative">
+    <section id="features" className="py-16 px-6 relative">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
@@ -121,7 +121,7 @@ export function Benefits() {
         </div>
 
         {/* Decorative line */}
-        <div className="mt-24 flex items-center justify-center gap-4">
+        <div className="mt-16 flex items-center justify-center gap-4">
           <div className="h-px flex-1 bg-border" />
           <p className="text-sm text-muted-foreground text-center">
             Command Your Team's Success Like a Pro

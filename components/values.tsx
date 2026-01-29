@@ -87,10 +87,10 @@ function ValueCard({ value, index }: { value: (typeof values)[0]; index: number 
 
 export function Values() {
   return (
-    <section id="values" className="py-24 px-6 bg-muted/30">
+    <section id="values" className="py-16 px-6 bg-muted/30">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12">
           <span className="inline-block px-4 py-1 rounded-full border border-accent/30 text-accent text-sm font-medium mb-4">
             Core Values
           </span>
@@ -100,7 +100,7 @@ export function Values() {
         </div>
 
         {/* Values list */}
-        <div className="space-y-24">
+        <div className="space-y-16">
           {values.map((value, index) => (
             <ValueCard key={value.title} value={value} index={index} />
           ))}

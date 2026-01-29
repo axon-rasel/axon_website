@@ -25,7 +25,7 @@ export function Philosophy() {
   }, []);
 
   return (
-    <section id="philosophy" ref={sectionRef} className="py-24 px-6 relative overflow-hidden">
+    <section id="philosophy" ref={sectionRef} className="py-16 px-6 relative overflow-hidden">
       {/* Background accent */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.18_0.05_145_/_0.15)_0%,transparent_70%)]" />
 
