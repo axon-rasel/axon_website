@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',      // <--- THIS IS THE MISSING PIECE
+  output: 'export',
   images: {
-    unoptimized: true,   // Required for static exports
+    unoptimized: true,
   },
+  // Ensure trailingSlash is true if you have subpages
+  trailingSlash: true, 
 };
 
 export default nextConfig;
