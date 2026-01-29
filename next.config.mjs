@@ -1,11 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  output: 'export',      // <--- THIS IS THE MISSING PIECE
   images: {
-    unoptimized: true,
+    unoptimized: true,   // Required for static exports
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
