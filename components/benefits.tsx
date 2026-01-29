@@ -110,9 +110,7 @@ export function Benefits() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
             Everything you need to <span className="text-accent">master time</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-            Stop managing tasks. Start mastering time. Reclaim your day with Axon.
-          </p>
+          
         </div>
 
         {/* Benefits grid */}
