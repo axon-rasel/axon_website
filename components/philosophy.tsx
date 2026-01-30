@@ -53,11 +53,11 @@ export function Philosophy() {
             </p>
 
             <div
-              className={`p-6 border border-border transition-all duration-700 delay-300 bg-border opacity-100 leading-3 font-thin px-1.5 py-3 rounded-xl ${
+              className={`p-6 border transition-all duration-700 delay-300 opacity-100 leading-3 font-thin px-1.5 py-3 rounded-lg border-background bg-lime-50 ${
                 isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
               }`}
             >
-              <p className="text-foreground italic leading-7 text-3xl font-semibold">
+              <p className="italic leading-7 text-3xl font-semibold text-slate-500">
                 "Built with logic. Driven by a heartbeat."
               </p>
             </div>
